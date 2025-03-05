@@ -1,24 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useStatistics } from "./useStats.ts"
 
 
 import './App.css'
+import { Chart } from './Chart.tsx'
 
 function App() {
   const [count, setCount] = useState(0)
   //@ts-ignore
   //window.electron.getData();
-  useEffect(() => {
-    //@ts-ignore
-    window.electron.subscribeStatistics(stats => {
-      console.log("stats", stats)
-    })
-  }, [])
+  const stats = useStatistics(10);
+  const cpuUsages = useMemo(
+    () => stats.map((stat) => stat.cpu),
+    [stats]
+  )
+
   return (
     <>
-      <div>
+      <div style={{ height: 120 }}>
+        <Chart data={cpuUsages} maxDataPoints={10} selectedView="CPU" ></Chart>
 
 
-      </div>
+      </div >
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
