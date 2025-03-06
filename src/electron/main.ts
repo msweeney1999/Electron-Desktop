@@ -1,8 +1,8 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, Tray } from 'electron'
 import path from "path"
 import { isDev } from './util.js';
 import { getData, pollResources } from './resourceManager.js';
-import { getPreloadPath } from './pathResolver.js';
+import { getAssetPath, getPreloadPath } from './pathResolver.js';
 
 
 
@@ -22,5 +22,7 @@ app.on('ready', () => {
     ipcMain.handle("getData", () => {
         return getData();
     })
+
+    new Tray(path.join(getAssetPath(), "trayIcon.png"))
 
 })

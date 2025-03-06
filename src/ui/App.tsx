@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useStatistics } from "./useStats.ts"
-
-
 import './App.css'
 import { Chart } from './Chart.tsx'
+
+//https://youtu.be/fP-371MN0Ck?t=7477
 
 function App() {
   const [count, setCount] = useState(0)
